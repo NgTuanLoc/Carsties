@@ -481,7 +481,6 @@ $RECYCLE.BIN/
 .vscode
 bin/
 obj/
-*.txt
 .DS_Store
 out
 TestResults

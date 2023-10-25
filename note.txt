@@ -1,0 +1,26 @@
+1/ git tips
+    [Give a clean commit list]: git log --all --decorate --oneline --graph
+    [Check out commit]: git checkout #commit-id
+    [make an alias for git command]: git config --global alias.adog "log --all --decorate --oneline --graph"
+    => git adog
+
+2/ dotnet command tips
+    [Listing all template project]: dotnet new list
+    [Create new solution]: dotnet new sln
+    [Create new web api project]: dotnet new webapi -o src/AuctionService
+    [Add project into solution]: dotnet sln add src/AuctionService
+    [Update dotnet-ef]: dotnet tool update dotnet-ef -g
+    [Create .gitignore template file]: dotnet new gitignore
+
+Section:
+    Auctions Service
+        - Create a simple API for the Auctions
+        - CRUD
+        - Seeding Data
+        - Using docker compose
+        - Using postman to test the API
+        - Add migragtion (switch to AuctionService project): dotnet ef migrations add "InitialCreate" -o Data/Migrations
+        - Update Database (switch to AuctionService project): dotnet ef database update
+        - Add Postgre database server: docker compose up -d
+        - Create DTO and Mapping profiles
+        - Add .ediotconfig to get the right format suggestions
