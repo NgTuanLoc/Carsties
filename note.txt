@@ -24,3 +24,6 @@ Section:
         - Add Postgre database server: docker compose up -d
         - Create DTO and Mapping profiles
         - Add .ediotconfig to get the right format suggestions
+    Search Service 
+        - Create Web Api for Search Service: dotnet new webapi -o src/SearchService
+        - Add new project into sln: dotnet sln add src/SearchService
