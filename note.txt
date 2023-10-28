@@ -11,6 +11,17 @@
     [Add project into solution]: dotnet sln add src/AuctionService
     [Update dotnet-ef]: dotnet tool update dotnet-ef -g
     [Create .gitignore template file]: dotnet new gitignore
+    [Add reference between project]: dotnet add reference ../../src/Contracts
+
+3/ RabbitMQ
+    - username: guest
+    - password: guest
+    - is a Message Broker - accepts and forwards messages
+    - Producer/Consumer model (Pub/Sub)
+    - Messages are stored on queues (message buffer)
+    - Can be use persistent storage
+    - Exchanges can be used for "routing" functionality
+    - Uses AMQP
 
 Section:
     Auctions Service
@@ -29,3 +40,15 @@ Section:
         - Add new project into sln: 
         - Add Model and Seeding data
         - Add pagination, filtering and ordering
+        - Temporary using Http to talk to Auction Service
+        - Using Polly to handle error when calling Auction Service
+    Message Broker
+        - Using RabbitMQ -> Asynchronous Messaging
+        - No Request/ Response
+        - Fire and Forget
+        - Event Model (publish/subscribe)
+        - Typically used for service to service messaging
+        - Transports (RabbitMQ, Azure Service Bus, Amazon SQS)
+        - Using RabbitMQ to run locally and not depend on cloud service
+        - Services only need to know about the Bus
+        - But if the Event Bus is down, service might not be communicate with each other but still be available
