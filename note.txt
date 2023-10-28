@@ -19,11 +19,13 @@ Section:
         - Seeding Data
         - Using docker compose
         - Using postman to test the API
-        - Add migragtion (switch to AuctionService project): dotnet ef migrations add "InitialCreate" -o Data/Migrations
+        - Add migration (switch to AuctionService project): dotnet ef migrations add "InitialCreate" -o Data/Migrations
         - Update Database (switch to AuctionService project): dotnet ef database update
-        - Add Postgre database server: docker compose up -d
+        - Add Postgres database server: docker compose up -d
         - Create DTO and Mapping profiles
-        - Add .ediotconfig to get the right format suggestions
+        - Add .editorconfig to get the right format suggestions
     Search Service 
         - Create Web Api for Search Service: dotnet new webapi -o src/SearchService
-        - Add new project into sln: dotnet sln add src/SearchService
+        - Add new project into sln: 
+        - Add Model and Seeding data
+        - Add pagination, filtering and ordering
