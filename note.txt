@@ -52,3 +52,4 @@ Section:
         - Using RabbitMQ to run locally and not depend on cloud service
         - Services only need to know about the Bus
         - But if the Event Bus is down, service might not be communicate with each other but still be available
+        - Add migration for outbox: dotnet ef migrations add Outbox -o ./Data/Migrations
