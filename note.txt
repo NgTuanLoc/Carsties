@@ -57,3 +57,7 @@ Section:
         - Install template Duende: dotnet new install Duende.IdentityServer.Templates
         - Create new project: dotnet new isaspid -o src/IdentityService
         - Add reference into solution: dotnet sln add src/IdentityService
+        - ntloc-Iwishiwere235@
+    GateWay
+        - Create new project: dotnet new web -o src/GatewayService
+        - Add reference into solution: dotnet sln add src/GatewayService
