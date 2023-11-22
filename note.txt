@@ -61,3 +61,6 @@ Section:
     GateWay
         - Create new project: dotnet new web -o src/GatewayService
         - Add reference into solution: dotnet sln add src/GatewayService
+
+4/ ClientApp (NextJs)
+    - Create project: npx create-next-app@latest
