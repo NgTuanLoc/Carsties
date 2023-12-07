@@ -4,6 +4,7 @@ import React from 'react'
 import Heading from './Heading'
 import { Button } from 'flowbite-react'
 import { useParamsStore } from '../hooks/useParamsStore'
+import { signIn } from 'next-auth/react'
 
 type Props = {
   title?: string
@@ -18,6 +19,7 @@ export default function EmptyFilter({
   subtitle = 'Try changing or resetting the filter',
   showReset,
   showLogin,
+  callbackUrl,
 }: Props) {
   const reset = useParamsStore((state) => state.reset)
 
@@ -30,7 +32,11 @@ export default function EmptyFilter({
             Remove Filters
           </Button>
         )}
-        {showLogin && <Button outline>Login</Button>}
+        {showLogin && (
+          <Button outline onClick={() => signIn('id-server', { callbackUrl })}>
+            Login
+          </Button>
+        )}
       </div>
     </div>
   )

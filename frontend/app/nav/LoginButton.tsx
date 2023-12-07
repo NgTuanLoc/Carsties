@@ -1,22 +1,18 @@
-import NextAuth, { NextAuthOptions } from 'next-auth'
-import DuendeIDS6Provider from 'next-auth/providers/duende-identity-server6'
+'use client'
 
-export const authOptions: NextAuthOptions = {
-  session: {
-    strategy: 'jwt',
-  },
-  providers: [
-    DuendeIDS6Provider({
-      id: 'id-server',
-      clientId: 'nextApp',
-      clientSecret: 'secret',
-      issuer: 'http://localhost:5000',
-      authorization: { params: { scope: 'openid profile auctionApp' } },
-      idToken: true,
-    }),
-  ],
+import { Button } from 'flowbite-react'
+import React from 'react'
+import { signIn } from 'next-auth/react'
+
+export default function LoginButton() {
+  return (
+    <Button
+      outline
+      onClick={() =>
+        signIn('id-server', { callbackUrl: '/' }, { prompt: 'login' })
+      }
+    >
+      Login
+    </Button>
+  )
 }
-
-const handler = NextAuth(authOptions)
-
-export { handler as GET, handler as POST }
