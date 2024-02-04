@@ -8,6 +8,8 @@ type State = {
   searchValue: string
   orderBy: string
   filterBy: string
+  winner?: string
+  seller?: string
 }
 type Action = {
   setParams: (params: Partial<State>) => void
