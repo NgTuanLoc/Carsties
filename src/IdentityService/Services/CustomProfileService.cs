@@ -23,7 +23,7 @@ public class CustomProfileService : IProfileService
 
         var claims = new List<Claim>
         {
-            new Claim("username", user.UserName)
+            new("username", user.UserName)
         };
 
         context.IssuedClaims.AddRange(claims);
