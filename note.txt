@@ -65,4 +65,7 @@ Section:
 4/ ClientApp (NextJs)
     - Create project: npx create-next-app@latest
     - https://transform.tools/json-to-typescript
-    - ServerAction -> if a client component using a serverAction -> when the server action is activated -> be will build another clientComponent with new data return by that server -> return to client browser
+    - ServerAction -> if a client component using a serverAction -> when the server action is activated -> be will build another clientComponent with new data return by that server -> return to client 
+    - react-hook-form, react-datepicker
+    - fetch is server-side call, axios or third party is call in client
+    - error handling in NextJs

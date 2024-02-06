@@ -1,21 +1,31 @@
 'use client'
 
-import { Button, TextInput } from 'flowbite-react'
+import { Button } from 'flowbite-react'
 import React, { useEffect } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import Input from '../components/Input'
+import DateInput from '../components/DateInput'
+import { createAuction } from '../actions/auctionActions'
+import { useRouter } from 'next/navigation'
 
 const AuctionForm = () => {
+  const router = useRouter()
   const {
     control,
-    register,
     handleSubmit,
     setFocus,
-    formState: { isSubmitting, isValid, isDirty, errors },
+    formState: { isSubmitting, isValid },
   } = useForm({ mode: 'onTouched' })
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data)
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      const res = await createAuction(data)
+
+      if (res.error) throw new Error(res.error)
+      router.push(`/auctions/details/${res.id}`)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
@@ -70,10 +80,12 @@ const AuctionForm = () => {
           control={control}
           rules={{ required: 'Reserve Price is required' }}
         />
-        <Input
+        <DateInput
           label='Auction end date/time'
           name='auctionEnd'
           control={control}
+          dateFormat='dd MMMM yyyy h:mm a'
+          showTimeSelect
           rules={{ required: 'Auction end is required' }}
           type='date'
         />
@@ -87,7 +99,7 @@ const AuctionForm = () => {
           outline
           color='success'
           isProcessing={isSubmitting}
-          //   disabled={!isValid}
+          disabled={!isValid}
           type='submit'
         >
           Submit
