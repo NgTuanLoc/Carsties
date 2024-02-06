@@ -62,7 +62,7 @@ const handleResponse = async (response: Response) => {
     status: response.status,
     message: response.statusText,
   }
-  return error
+  return { error }
 }
 
 export const fetchWrapper = {
