@@ -6,6 +6,7 @@ import CarImage from '../../CarImage'
 import { DetailedSpecs } from './DetailedSpecs'
 import { getCurrentUser } from '@/app/actions/authActions'
 import EditButton from '../EditButton'
+import DeleteButton from './DeleteButton'
 
 const Details = async ({ params }: { params: { id: string } }) => {
   const data = await getDetailedViewData(params.id)
@@ -17,7 +18,12 @@ const Details = async ({ params }: { params: { id: string } }) => {
       <div className='flex justify-between'>
         <div className='flex items-center gap-3'>
           <Heading title={`${make} ${model}`} />
-          {user?.username === data.seller && <EditButton id={params.id} />}
+          {user?.username === data.seller && (
+            <>
+              <EditButton id={params.id} />
+              <DeleteButton id={params.id} />
+            </>
+          )}
         </div>
         <div>
           <h3 className='text-2xl font-semibold'>Time remaining:</h3>

@@ -1,8 +1,11 @@
 'use client'
 import { FaSearch } from 'react-icons/fa'
 import { useParamsStore } from '../hooks/useParamsStore'
+import { usePathname, useRouter } from 'next/navigation'
 
 const Search = () => {
+  const router = useRouter()
+  const pathname = usePathname()
   const setParams = useParamsStore((state) => state.setParams)
   const searchValue = useParamsStore((state) => state.searchValue)
   const setSearchValue = useParamsStore((state) => state.setSearchValue)
@@ -12,6 +15,7 @@ const Search = () => {
   }
 
   const onSearchHandler = () => {
+    if (pathname !== '/') router.push('/')
     setParams({ searchTerm: searchValue })
   }
 
