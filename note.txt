@@ -61,6 +61,9 @@ Section:
     GateWay
         - Create new project: dotnet new web -o src/GatewayService
         - Add reference into solution: dotnet sln add src/GatewayService
+    GateWay
+        - Create new project: dotnet new webapi -o src/BiddingService
+        - Add reference into solution: dotnet sln add src/BiddingService
 
 4/ ClientApp (NextJs)
     - Create project: npx create-next-app@latest
@@ -69,3 +72,9 @@ Section:
     - react-hook-form, react-datepicker
     - fetch is server-side call, axios or third party is call in client
     - error handling in NextJs
+
+5/ Bid Service
+    - Creating the Bid Service project
+    - Background Services
+    - gRPC
+    - Bid service specification
