@@ -61,9 +61,12 @@ Section:
     GateWay
         - Create new project: dotnet new web -o src/GatewayService
         - Add reference into solution: dotnet sln add src/GatewayService
-    GateWay
+    Bidding Service
         - Create new project: dotnet new webapi -o src/BiddingService
         - Add reference into solution: dotnet sln add src/BiddingService
+    Notification Service
+        - Create new project: dotnet new web -o src/NotificationService
+        - Add reference into solution: dotnet sln add src/NotificationService
 
 4/ ClientApp (NextJs)
     - Create project: npx create-next-app@latest
@@ -74,6 +77,12 @@ Section:
     - error handling in NextJs
 
 5/ Bid Service
+    - Creating the Bid Service project
+    - Background Services
+    - gRPC
+    - Bid service specification
+
+6/ Notification Service
     - Creating the Bid Service project
     - Background Services
     - gRPC
