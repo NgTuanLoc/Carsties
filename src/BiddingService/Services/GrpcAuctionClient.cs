@@ -17,8 +17,7 @@ public class GrpcAuctionClient
     public async Task<Auction> GetAuction(string id)
     {
         _logger.LogInformation("Calling Grpc service");
-        // using var channel = GrpcChannel.ForAddress(_config["GrpcAuction"]);
-        using var channel = GrpcChannel.ForAddress("http://localhost:7777");
+        using var channel = GrpcChannel.ForAddress(_config["GrpcAuction"]);
         var client = new GrpcAuction.GrpcAuctionClient(channel);
         var request = new GetAuctionRequest { Id = id };
 
