@@ -54,7 +54,12 @@ const getHeaders = async () => {
 
 const handleResponse = async (response: Response) => {
   const text = await response.text()
-  const data = text && JSON.parse(text)
+  let data
+  try {
+    data = JSON.parse(text)
+  } catch (error) {
+    data = text
+  }
 
   if (response.ok) return data || response.statusText
 

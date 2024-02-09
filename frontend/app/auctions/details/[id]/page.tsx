@@ -1,16 +1,22 @@
-import { getDetailedViewData } from '@/app/actions/auctionActions'
+import {
+  getBidsForAuction,
+  getDetailedViewData,
+} from '@/app/actions/auctionActions'
 import Heading from '@/app/components/Heading'
 import React from 'react'
 import CountdownTimer from '../../CountDownTimer'
 import CarImage from '../../CarImage'
 import { DetailedSpecs } from './DetailedSpecs'
 import { getCurrentUser } from '@/app/actions/authActions'
-import EditButton from '../EditButton'
+import EditButton from './EditButton'
 import DeleteButton from './DeleteButton'
+import BidItem from './BidItem'
+import BidList from './BidList'
 
 const Details = async ({ params }: { params: { id: string } }) => {
   const data = await getDetailedViewData(params.id)
   const user = await getCurrentUser()
+  const bids = await getBidsForAuction(params.id)
   const { make, model, auctionEnd, imageUrl } = data
 
   return (
@@ -30,13 +36,11 @@ const Details = async ({ params }: { params: { id: string } }) => {
           <CountdownTimer auctionEnd={auctionEnd} />
         </div>
       </div>
-      <div className='grid grid-cols-3 gap-6 mt-3'>
+      <div className='grid grid-cols-2 gap-6 mt-3'>
         <div className='w-full bg-gray-200 aspect-h-10 aspect-w-16 rounded-lg overflow-hidden'>
-          <CarImage imageUrl={imageUrl} />
+          <CarImage imageUrl={data.imageUrl} />
         </div>
-        <div className='border-2 rounded-lg p-2 bg-gray-100'>
-          <Heading title='Bids' />
-        </div>
+        <BidList user={user} auction={data} />
       </div>
       <div
         className='mt-3
