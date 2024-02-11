@@ -53,7 +53,7 @@ const AuctionForm = ({ auction }: Props) => {
     }
     setFocus('make')
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setFocus])
+  }, [auction])
 
   return (
     <form className='flex flex-col mt-3' onSubmit={handleSubmit(onSubmit)}>
