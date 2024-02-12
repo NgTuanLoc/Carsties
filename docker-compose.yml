@@ -12,7 +12,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - /var/lib/postgressql/data
+      - /var/lib/postresql/data
     networks:
       custom:
   mongo:
@@ -83,10 +83,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
-      - RabbitMq__Host=rabbitmq
+      - ClientApp=http://app.carsties.com
       - ConnectionStrings__DefaultConnection=Server=postgres:5432; User Id=postgres; Password=postgres; Database=identity
-    ports:
-      - 80:80
+      - VIRTUAL_HOST=id.carsties.com
     depends_on:
       - postgres
       - rabbitmq
@@ -101,8 +100,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
-    ports:
-      - 6001:80
+      - ClientApp=https://app.carsties.com
+      - VIRTUAL_HOST=api.carsties.com
     networks:
       custom:
   bid-svc:
@@ -146,16 +145,26 @@ services:
       dockerfile: ./frontend/Dockerfile
     volumes:
       - /var/lib/web/data
-    ports:
-      - 3000:3000
     extra_hosts:
-      id.carties.com: 10.5.0.200
+      id.carsties.com: 10.5.0.200
     environment:
       - NEXTAUTH_SECRET=secret
-      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_URL=http://app.carsties.com
       - NEXTAUTH_URL_INTERNAL=http://web-app:3000
       - API_URL=http://gateway-svc
-      - ID_URL=id.carties.com
+      - ID_URL=http://id.carsties.com
       - NEXT_PUBLIC_NOTIFY_URL=http://gateway-svc/notifications
+      - VIRTUAL_HOST=app.carsties.com
+      - VIRTUAL_PORT=3000
     networks:
       custom:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      custom:
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./devcerts:/etc/nginx/certs
