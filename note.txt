@@ -91,3 +91,21 @@ Section:
 Note: SSL
     + mkcert -install
     + mkcert -key-file carsties.com.key -cert-file carsties.com.crt app.carsties.com api.carsties.com id.carsties.com
+
+UT:
+    Note:
+        + dotnet new xunit -o tests/AuctionService.UnitTests
+        + dotnet sln add tests/AuctionService.UnitTests
+        + cd ./tests/AuctionService.UnitTests && dotnet add reference ../../src/AuctionService
+    1/ Requirement
+        - Fast
+        - Isolated
+        - Repeatable
+        - Self-Checking
+        - Timely
+    2/ What should I test?
+        - API Controller:
+            + The action returns correct type of Response
+            + Invalid Parameters return the correct error
+            + The action call the correct method on the Response
+            + If the response is a model, verify the model type and value
