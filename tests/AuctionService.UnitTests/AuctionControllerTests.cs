@@ -115,7 +115,7 @@ public class AuctionControllerTests
         var result = await _controller.CreateAuction(auctionDto, CancellationToken.None);
 
         // Assert
-        result.Value.Should().BeOfType<BadRequestObjectResult>();
+        result.Result.Should().BeOfType<BadRequestObjectResult>();
     }
 
     [Fact]
