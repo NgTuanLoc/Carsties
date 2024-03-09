@@ -50,6 +50,41 @@ public class AuctionControllerTests : IClassFixture<CustomWebAppFactory>, IAsync
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
+    [Fact]
+    public async Task CreateAuction_WithNoAuth_ShouldReturn401()
+    {
+        // Arrange
+        var auction = new CreateAuctionDto()
+        {
+            Make = "test"
+        };
+
+        // Act
+        var response = await _httpClient.PostAsJsonAsync($"api/auctions", auction);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
+
+    [Fact]
+    public async Task CreateAuction_WithAuth_ShouldReturn201()
+    {
+        // Arrange
+        string SELLER = "bob";
+        var auction = GetAuctionForCreate();
+        _httpClient.SetFakeJwtBearerToken(AuthHelper.GetBearerForUser(SELLER));
+
+        // Act
+        var response = await _httpClient.PostAsJsonAsync($"api/auctions", auction);
+
+        // Assert
+        response.EnsureSuccessStatusCode();
+        response.StatusCode.Should().Be(HttpStatusCode.Created);
+
+        var createdAuction = await response.Content.ReadFromJsonAsync<AuctionDto>();
+        createdAuction.Seller.Should().Be(SELLER);
+    }
+
     public Task InitializeAsync() => Task.CompletedTask;
     public Task DisposeAsync()
     {
@@ -57,5 +92,19 @@ public class AuctionControllerTests : IClassFixture<CustomWebAppFactory>, IAsync
         var db = scope.ServiceProvider.GetRequiredService<AuctionDbContext>();
         DbHelper.ReInitDbForTests(db);
         return Task.CompletedTask;
+    }
+
+    private static CreateAuctionDto GetAuctionForCreate()
+    {
+        return new CreateAuctionDto
+        {
+            Make = "test",
+            Model = "testModel",
+            ImageUrl = "test",
+            Color = "test",
+            Mileage = 10,
+            Year = 10,
+            ReservePrice = 10
+        };
     }
 }
