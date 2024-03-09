@@ -4,6 +4,7 @@ using AuctionService.Data;
 using AuctionService.DTOs;
 using AuctionService.IntegrationTests.Fixtures;
 using Contracts;
+using FluentAssertions;
 using MassTransit.Testing;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -26,16 +27,17 @@ public class AuctionBusTests : IAsyncLifetime
     [Fact]
     public async Task CreateAuction_WithValidObject_ShouldPublishAuctionCreated()
     {
-        // arrange
+        // Arrange
         var auction = GetAuctionForCreate();
         _httpClient.SetFakeJwtBearerToken(AuthHelper.GetBearerForUser("bob"));
 
-        // act
+        // Act
         var response = await _httpClient.PostAsJsonAsync("api/auctions", auction);
 
-        // assert
+        // Assert
         response.EnsureSuccessStatusCode();
-        Assert.True(await _testHarness.Published.Any<AuctionCreated>());
+        var result = await _testHarness.Published.Any<AuctionCreated>();
+        result.Should().Be(true);
     }
 
     public Task InitializeAsync() => Task.CompletedTask;

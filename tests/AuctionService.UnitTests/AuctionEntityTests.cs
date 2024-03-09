@@ -1,4 +1,5 @@
 using AuctionService.Entities;
+using FluentAssertions;
 
 namespace AuctionService.UnitTests;
 
@@ -19,6 +20,6 @@ public class AuctionEntityTests
         var result = auction.HasReservePrice();
 
         // Assert
-        Assert.True(result);
+        result.Should().Be(true);
     }
 }
