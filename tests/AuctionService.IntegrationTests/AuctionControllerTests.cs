@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net;
+using System.Net.Http.Json;
 using AuctionService.Data;
 using AuctionService.DTOs;
 using AuctionService.IntegrationTests.Fixtures;
@@ -11,6 +12,7 @@ public class AuctionControllerTests : IClassFixture<CustomWebAppFactory>, IAsync
 {
     private readonly CustomWebAppFactory _factory;
     private readonly HttpClient _httpClient;
+    private const string _gT_ID = "afbee524-5972-4075-8800-7d1f9d7b0a0c";
     public AuctionControllerTests(CustomWebAppFactory factory)
     {
         _factory = factory;
@@ -26,6 +28,26 @@ public class AuctionControllerTests : IClassFixture<CustomWebAppFactory>, IAsync
 
         // Assert
         response.Count.Should().Be(3);
+    }
+
+    [Fact]
+    public async Task GetAuctionById_WithValidId_ShouldReturnAuction()
+    {
+        // Act
+        var response = await _httpClient.GetFromJsonAsync<AuctionDto>($"api/auctions/{_gT_ID}");
+
+        // Assert
+        response.Model.Should().Be("GT");
+    }
+
+    [Fact]
+    public async Task GetAuctionById_WithInvalidId_ShouldReturn404()
+    {
+        // Act
+        var response = await _httpClient.GetAsync($"api/auctions/{Guid.NewGuid()}");
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     public Task InitializeAsync() => Task.CompletedTask;
