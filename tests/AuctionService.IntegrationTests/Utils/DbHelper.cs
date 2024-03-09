@@ -18,6 +18,11 @@ public static class DbHelper
         InitDbForTests(db);
     }
 
+    internal static void ReinitDbForTests(object db)
+    {
+        throw new NotImplementedException();
+    }
+
     private static List<Auction> GetAuctions()
     {
         List<Auction> list = new()
